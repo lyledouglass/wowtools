@@ -1,25 +1,15 @@
-# workflow name
-name: Generate release-artifacts
-
-# on events
-on:
+on: 
   release:
-    types: 
-        - created
+    types: [created]
 
-# workflow tasks
 jobs:
-  generate:
-    name: Generate cross-platform builds
+  release-linux-amd64:
+    name: release linux/amd64
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
-      - name: Generate build files
-        uses: thatisuday/go-cross-build@v1
-        with:
-            platforms: 'linux/amd64, darwin/amd64, windows/amd64'
-            package: ''
-            name: 'wowtools'
-            compress: 'true'
-            dest: 'dist'
+    - uses: actions/checkout@v2
+    - uses: wangyoucao577/go-release-action@v1.21
+      with:
+        github_token: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+        goos: windows
+        goarch: arm64
