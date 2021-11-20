@@ -2,9 +2,8 @@ name: Release Go project
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - "*" # triggers only if push new tag version, like `0.8.4` or else
 
 jobs:
   build:
