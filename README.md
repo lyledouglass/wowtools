@@ -6,7 +6,8 @@ This project is based off other applications that manage certain functions with 
 ## Download
 The latest release can be found here: https://github.com/ldougbmx/wowtools/releases
 * Download the wowtools-vXXX-windows-amd64.zip
-* Extract the ZipFile and place the wowtools.exe wherever you like
+* Extract the ZipFile and place wherever you like
+* Verify/Update the wowtools-cli.yml to set custom paths if needed
 * Run wowtools.exe 
   
 ## Usage
