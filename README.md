@@ -10,12 +10,11 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
 * Run wowtools.exe 
   
 ## Usage
-WiP
+Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths
 
 ## Current Functionality
 Currently, this tool is only zipping up the WTF directory (*C:\Program Files (x86)\World of Warcraft\_retail_\WTF*) and backing it up to *C:\Program Files (x86)\World of Warcraft\_retail_\WTF-Backup*, with the format of YYYY-MM-DD.zip
 
 ## Planned enhancements 
-* Designated config file to set custom locations for game installs.
 * Ability to install/update ElvUI and other Github based projects
 * Implement CLI commands to allow users to perform specific actions

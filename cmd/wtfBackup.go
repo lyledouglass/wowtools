@@ -8,6 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 
@@ -59,13 +61,14 @@ func zipSource(source, target string) error {
 }
 
 func WtfBackup() {
-	retailFolder := "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\"
+	wtfFolder := viper.GetString("wtf_dir")
+	wtfBackupDir := viper.GetString("wtf_backup_dir")
 	currentTime := time.Now()
 	folderName := currentTime.Format("2006-01-02")
 
 	fmt.Println("Zipping WTF Folder")
 
-	if err := zipSource(retailFolder + "WTF", retailFolder + "WTF-Backup\\" + folderName + ".zip"); err != nil {
+	if err := zipSource(wtfFolder, wtfBackupDir + folderName + ".zip"); err != nil {
 		log.Fatal(err)
 	}
 }
