@@ -13,3 +13,4 @@ jobs:
         github_token: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
         goos: windows
         goarch: amd64
+        extra_files: wowtools-cli.yml README.md LICENSE
