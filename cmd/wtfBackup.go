@@ -70,7 +70,7 @@ func WtfBackup() {
 	if err := zipSource(wtfFolder, wtfBackupDir+folderName+".zip"); err != nil {
 		log.Fatal(err)
 	}
-	// Not really a true progress bar at the moment - more of a visual for the user - need to reseach better implementation, but works for now as the zip process is fairly quick for the WTF folder
+	// Not really a true progress bar at the moment - more of a visual for the user - need to reseach better implementation, but works for now, as the zip process is fairly quick for the WTF folder
 	bar := progressbar.Default(100)
 	for i := 0; i < 100; i++ {
 		bar.Add(1)
