@@ -1,2 +1,4 @@
 wtf_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\WTF"
 wtf_backup_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\WTF-Backup\\"
+
+elvui_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Interface\\AddOns\\ElvUI\\" 
