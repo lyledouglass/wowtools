@@ -47,6 +47,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: WoWTools-Windows-AMD64
+          
+      - name: See file contents
+        id: filesinfolder
+        run: ls -a /home/runner/work/wowtools/wowtools
 
       - name: Get current date
         id: date
