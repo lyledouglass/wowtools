@@ -94,6 +94,7 @@ jobs:
           files: |
             LICENSE
             README.md
-            wowtools.exe
+            build/wowtools.exe
+            wowtools-cli.yml
 
       
