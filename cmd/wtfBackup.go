@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/viper"
 )
-
 
 func zipSource(source, target string) error {
 	f, err := os.Create(target)
@@ -66,9 +66,15 @@ func WtfBackup() {
 	currentTime := time.Now()
 	folderName := currentTime.Format("2006-01-02")
 
-	fmt.Println("Zipping WTF Folder")
-
-	if err := zipSource(wtfFolder, wtfBackupDir + folderName + ".zip"); err != nil {
+	fmt.Println("Beginning backup of WTF folder")
+	if err := zipSource(wtfFolder, wtfBackupDir+folderName+".zip"); err != nil {
 		log.Fatal(err)
 	}
+	// Not really a true progress bar at the moment - more of a visual for the user - need to reseach better implementation, but works for now as the zip process is fairly quick for the WTF folder
+	bar := progressbar.Default(100)
+	for i := 0; i < 100; i++ {
+		bar.Add(1)
+		time.Sleep(20 * time.Millisecond)
+	}
+	fmt.Println("Folder backup complete")
 }
