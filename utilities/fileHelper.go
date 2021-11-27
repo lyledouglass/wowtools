@@ -56,7 +56,7 @@ func ZipSource(source, target string) error {
 	})
 }
 
-func DownloadFiles(url string) error {
+func DownloadFiles(filename string, url string) error {
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
@@ -66,7 +66,12 @@ func DownloadFiles(url string) error {
 		log.Fatal(resp.StatusCode)
 	}
 
-	fileOutput, err := os.Create("ElvUI.zip")
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fileOutput, err := os.Create(homeDir + "\\Downloads\\" + filename)
 	if err != nil {
 		log.Fatal(err)
 	}
