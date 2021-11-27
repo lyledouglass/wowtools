@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"time"
 	"wowtools/utilities"
@@ -15,16 +16,24 @@ func UpdateElvUI() {
 	currentVersion := utilities.GetCurrentVersion()
 	latestVersion := utilities.GetLatestVersion()
 	stringCurrentVersion := strings.Join(currentVersion, "")
-	fmt.Println(stringCurrentVersion)
-	fmt.Println(latestVersion)
+	filename := "elvui-" + latestVersion + ".zip"
+	homeDir, err := os.UserHomeDir()
+	downloadUri := "https://www.tukui.org/downloads/" + filename
+	zipFile := homeDir + "\\Downloads\\" + filename
+
 	if latestVersion > stringCurrentVersion {
 		fmt.Printf("A later version of ElvUI is available. Current version: %s; New version: %s\n", stringCurrentVersion, latestVersion)
 		updatePrompt := utilities.AskForConfirmation("Do you want to install the lastest version of ElvUI?")
 		if updatePrompt {
-			fmt.Println("Zipping current ElvUI folder")
 			ZipElvUI()
 			fmt.Printf("Downloading ElvUI %s\n", latestVersion)
-			DownloadElvUI(latestVersion)
+			utilities.DownloadFiles(filename, downloadUri)
+			utilities.RemoveFolder(viper.GetString("elvui_dir"))
+			utilities.RemoveFolder(viper.GetString("elvui_options_dir"))
+			if err != nil {
+				log.Fatal(err)
+			}
+			utilities.Unzip(zipFile, viper.GetString("addons_dir"))
 			// if version is newer, zip up old installation and unzip new one.
 		}
 	} else {
@@ -49,10 +58,4 @@ func ZipElvUI() {
 		time.Sleep(20 * time.Millisecond)
 	}
 	fmt.Println("Folder backup complete")
-}
-
-func DownloadElvUI(latestVersion string) {
-	filename := "elvui-" + latestVersion + ".zip"
-	downloadUri := "https://www.tukui.org/downloads/" + filename
-	utilities.DownloadFiles(filename, downloadUri)
 }
