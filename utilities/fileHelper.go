@@ -139,3 +139,10 @@ func Unzip(src string, dest string) ([]string, error) {
 	}
 	return filenames, nil
 }
+
+func VerifyFolders(filepath string) {
+	if _, err := os.Stat(filepath); os.IsNotExist(err) {
+		fmt.Println(filepath + " did not exist. Creating it!")
+		os.Mkdir(filepath, os.ModePerm)
+	}
+}
