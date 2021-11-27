@@ -52,7 +52,7 @@ func ZipElvUI() {
 }
 
 func DownloadElvUI(latestVersion string) {
-	downloadUri := "https://www.tukui.org/downloads/elvui-" + latestVersion + ".zip"
-	fmt.Println(downloadUri)
-	utilities.DownloadFiles(downloadUri)
+	filename := "elvui-" + latestVersion + ".zip"
+	downloadUri := "https://www.tukui.org/downloads/" + filename
+	utilities.DownloadFiles(filename, downloadUri)
 }
