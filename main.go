@@ -7,6 +7,6 @@ import (
 
 func main() {
 	L.InitConfig()
-	//L.WtfBackup()
+	L.WtfBackup()
 	L.UpdateElvUI()
 }
