@@ -15,8 +15,15 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
 Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths
 
 ## Current Functionality
-Currently, this tool is only zipping up the WTF directory (*C:\Program Files (x86)\World of Warcraft\_retail_\WTF*) and backing it up to *C:\Program Files (x86)\World of Warcraft\_retail_\WTF-Backup*, with the format of YYYY-MM-DD.zip
+1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
+2.  Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
+3.  Checks for any updates to ElvUI
+    1.  If a newer version is found via the API, you will be asked if you want to update
+    2.  If Yes
+        1.  Zips current ElvUI directories and moves them to `_retail_\Backups\ElvUI`
+        2.  Deletes current ElvUI install in the Addons directory
+        3.  Downloads latest zip of ElvUI
+        4.  Unzips and moves folder to your Addons directory
 
 ## Planned enhancements 
-* Ability to install/update ElvUI and other Github based projects
-* Implement CLI commands to allow users to perform specific actions
+* Implement CLI commands to allow users to perform specific actions on demand. 
