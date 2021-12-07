@@ -47,7 +47,7 @@ func ZipElvUI() {
 	currentTime := time.Now()
 	folderName := currentTime.Format("2006-01-02")
 
-	fmt.Println("Beginning backup of WTF folder")
+	fmt.Println("Beginning backup of ElvUI folder")
 	if err := utilities.ZipSource(elvuiFolder, backupFolder+folderName+".zip"); err != nil {
 		log.Fatal(err)
 	}
