@@ -9,6 +9,9 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
   * The README and LICENSE files are also included in the release
 * Place the files anywhere on your system (but both in the same directory)
 * Verify/Update the wowtools-cli.yml to set custom paths if needed
+  * The curseforge_args will need to be filled out for Curseforge to open. If they are not, only the full full Overwolf app will open. 
+  * These can be grabbed from the Curseforge exe by right-clicking and selecting Properties. 
+  * Copy the target -launchapp xxxxxxxxxxxxxxxxx -from-startmenu section and insert it into the yml.
 * Run wowtools.exe 
   
 ## Usage
@@ -24,6 +27,7 @@ Update the wowtools-cli.yml file if you have WoW installed in a custom location.
         2.  Deletes current ElvUI install in the Addons directory
         3.  Downloads latest zip of ElvUI
         4.  Unzips and moves folder to your Addons directory
+4. Asks user if they want to open the Curseforge application
 
 ## Planned enhancements 
 * Implement CLI commands to allow users to perform specific actions on demand. 
