@@ -34,3 +34,11 @@ Update the wowtools-cli.yml file if you have WoW installed in a custom location.
 
 ## Planned enhancements 
 * Implement CLI commands to allow users to perform specific actions on demand. 
+
+## Adding an icon to the exe
+There are a few options that can be used to add an icon to the executable so it doesn't look as 'ugly' in the Start Menu or a folder you store commonly used apps. 
+
+1. Create a shortcut to the application and add an icon to the shortcut. 
+   1. I store my wowtools in my WoW retail folder and create a shortcut to it on my Start menu
+   2. The icon I use can be found in the images folder in this repo
+2. Another more complex process is using an application like 'Resource Hacker', or even using the [go-winres](https://github.com/tc-hib/go-winres) package and manually build the app from source.
