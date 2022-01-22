@@ -17,6 +17,9 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
 ## Usage
 Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths
 
+## Example Output
+![Alt text](images\example-output.png)
+
 ## Current Functionality
 1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
 2.  Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
