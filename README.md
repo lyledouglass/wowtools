@@ -18,7 +18,7 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
 Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths
 
 ## Example Output
-![Alt text](images\example-output.png)
+![Alt text](https://github.com/ldougbmx/wowtools/blob/main/images/example-output.png)
 
 ## Current Functionality
 1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
