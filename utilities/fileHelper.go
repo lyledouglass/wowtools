@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
 func ZipSource(source, target string) error {
@@ -140,7 +141,8 @@ func Unzip(src string, dest string) ([]string, error) {
 	return filenames, nil
 }
 
-func VerifyFolders(filepath string) {
+func VerifyFolders(filepath string, wg *sync.WaitGroup) {
+	defer wg.Done()
 	if _, err := os.Stat(filepath); os.IsNotExist(err) {
 		fmt.Println(filepath + " did not exist. Creating it!")
 		os.Mkdir(filepath, os.ModePerm)
