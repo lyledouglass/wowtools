@@ -170,3 +170,9 @@ func GetOldestFolder(filepath string) string {
 	}
 	return oldestFile.Name()
 }
+
+func GetFileCount(directory string) int {
+	files, _ := ioutil.ReadDir(directory)
+	count := len(files)
+	return count
+}
