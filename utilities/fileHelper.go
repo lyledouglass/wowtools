@@ -4,12 +4,15 @@ import (
 	"archive/zip"
 	"fmt"
 	"io"
+	"io/fs"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 )
 
 func ZipSource(source, target string) error {
@@ -147,4 +150,23 @@ func VerifyFolders(filepath string, wg *sync.WaitGroup) {
 		fmt.Println(filepath + " did not exist. Creating it!")
 		os.Mkdir(filepath, os.ModePerm)
 	}
+}
+
+func GetOldestFolder(filepath string) string {
+	var oldestFile fs.FileInfo
+	files, err := ioutil.ReadDir(filepath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	oldestTime := time.Now()
+	for _, file := range files {
+		if file.Mode().IsRegular() && file.ModTime().Before(oldestTime) {
+			oldestFile = file
+			oldestTime = file.ModTime()
+		}
+	}
+	if oldestFile == nil {
+		err = os.ErrNotExist
+	}
+	return oldestFile.Name()
 }
