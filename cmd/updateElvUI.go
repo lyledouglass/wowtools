@@ -25,6 +25,7 @@ func UpdateElvUI() {
 		fmt.Printf("A later version of ElvUI is available. Current version: %s; New version: %s\n", stringCurrentVersion, latestVersion)
 		updatePrompt := utilities.AskForConfirmation("Do you want to install the lastest version of ElvUI?")
 		if updatePrompt {
+			removeOldElvuiZip()
 			ZipElvUI()
 			fmt.Printf("Downloading ElvUI %s\n", latestVersion)
 			utilities.DownloadFiles(filename, downloadUri)
@@ -58,4 +59,18 @@ func ZipElvUI() {
 		time.Sleep(20 * time.Millisecond)
 	}
 	fmt.Println("Folder backup complete")
+}
+
+func removeOldElvuiZip() {
+	backupFolder := viper.GetString("backup_dir") + "ElvUI\\"
+	fileCount := utilities.GetFileCount(backupFolder)
+	fmt.Println(fileCount)
+	if fileCount > 2 {
+		oldestFile := utilities.GetOldestFolder(backupFolder)
+		os.Chdir(backupFolder)
+		removeFile := os.Remove(oldestFile)
+		if removeFile != nil {
+			log.Fatal()
+		}
+	}
 }
