@@ -19,6 +19,7 @@ func main() {
 	go utilities.VerifyFolders(viper.GetString("backup_dir")+"WTF", &wg)
 	wg.Wait()
 
+	cmd.RemoveOldestWtfZip()
 	cmd.WtfBackup()
 	cmd.UpdateElvUI()
 	utilities.OpenCurseforge()
