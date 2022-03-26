@@ -23,6 +23,7 @@ Update the wowtools-cli.yml file if you have WoW installed in a custom location.
 ## Current Functionality
 1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
 2.  Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
+    1.  Reads the `retention_rate` from the yml and removes the oldest zip file if the count in the folder is higher than it.
 3.  Checks for any updates to ElvUI
     1.  If a newer version is found via the API, you will be asked if you want to update
     2.  If Yes

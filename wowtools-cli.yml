@@ -5,3 +5,4 @@ elvui_options_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Interf
 addons_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Interface\\AddOns"
 curseforge_exe: "C:\\Program Files (x86)\\Overwolf\\OverwolfLauncher.exe"
 curseforge_args: "-launchapp xxxxxxxxxxxxxxxxxxxxxxxxxx -from-startmenu"
+retention_rate: 15
