@@ -11,6 +11,7 @@ import (
 )
 
 func TestCleanFolders(t *testing.T) {
+	t.Skip()
 	filepath := "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Backups\\WTF"
 	var oldestFile fs.FileInfo
 	files, err := ioutil.ReadDir(filepath)

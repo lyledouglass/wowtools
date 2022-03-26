@@ -8,6 +8,7 @@ import (
 )
 
 func TestRemoveFile(t *testing.T) {
+	t.Skip()
 	os.Chdir("C:\\Temp\\wowtools")
 	testFile, err := os.Create("Test.txt")
 	if err != nil {
