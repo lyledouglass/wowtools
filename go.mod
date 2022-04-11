@@ -4,7 +4,6 @@ go 1.17
 
 require (
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/schollz/progressbar/v3 v3.8.6
 	github.com/spf13/viper v1.10.1
 )
 

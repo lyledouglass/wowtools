@@ -8,7 +8,6 @@ import (
 	"time"
 	"wowtools/utilities"
 
-	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/viper"
 )
 
@@ -48,15 +47,9 @@ func ZipElvUI() {
 	currentTime := time.Now()
 	folderName := currentTime.Format("2006-01-02")
 
-	fmt.Println("Beginning backup of ElvUI folder")
+	fmt.Println("Beginning backup of ElvUI folder. This may take a moment")
 	if err := utilities.ZipSource(elvuiFolder, backupFolder+folderName+".zip"); err != nil {
 		log.Fatal(err)
-	}
-	// Not really a true progress bar at the moment - more of a visual for the user - need to reseach better implementation, but works for now, as the zip process is fairly quick for the WTF folder
-	bar := progressbar.Default(100)
-	for i := 0; i < 100; i++ {
-		bar.Add(1)
-		time.Sleep(20 * time.Millisecond)
 	}
 	fmt.Println("Folder backup complete")
 }
