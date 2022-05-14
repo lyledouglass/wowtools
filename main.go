@@ -1,3 +1,5 @@
+//go:generate goversioninfo
+
 package main
 
 import (
@@ -9,6 +11,7 @@ import (
 )
 
 func main() {
+
 	cmd.InitConfig()
 
 	// WaitGroup for creating missing folders.
