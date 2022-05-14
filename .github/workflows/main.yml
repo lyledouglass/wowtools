@@ -21,6 +21,9 @@ jobs:
     - name: Make build folder
       run: mkdir build
 
+    - name: Go Generate
+      run: go generate
+
     - name: Build for Windows (amd64)
       run: env GOOS=windows GOARCH=amd64 go build -o build/
 
