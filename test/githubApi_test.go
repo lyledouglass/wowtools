@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"testing"
 )
 
 func TestGitHubApi(t *testing.T) {
+	var assetName = "wowtools.exe"
 	type githubApiData struct {
 		AppVersion string `json:"tag_name"`
 		Assets     []struct {
@@ -29,7 +29,7 @@ func TestGitHubApi(t *testing.T) {
 			log.Fatal(err)
 		}
 	}(resp.Body)
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +40,7 @@ func TestGitHubApi(t *testing.T) {
 	}
 	fmt.Println("Version: " + data.AppVersion)
 	for _, asset := range data.Assets {
-		if asset.Name == "wowtools.exe" {
+		if asset.Name == assetName {
 			fmt.Println("Download URI: " + asset.BrowserDownloadURL)
 		}
 	}
