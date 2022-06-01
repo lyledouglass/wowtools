@@ -54,8 +54,7 @@ type githubApiData struct {
 	AppVersion string `json:"tag_name"`
 }
 
-func GetPublishedAppVersion() string {
-	url := "https://api.github.com/repos/lyledouglass/wowtools/releases/latest"
+func GetPublishedAppVersion(url string) string {
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
