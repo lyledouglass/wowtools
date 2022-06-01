@@ -30,6 +30,9 @@ jobs:
     - name: Go Generate
       run: go generate
 
+    - name: ls debug
+      run: ls -a
+
     - name: Build for Windows (amd64)
       run: env GOOS=windows GOARCH=amd64 go build -o build/wowtools.exe
 
