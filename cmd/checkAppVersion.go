@@ -14,7 +14,7 @@ var currentVersion = utilities.GetCurrentAppVersion()
 
 func compareAppVersioning() bool {
 	var updateApp bool
-	if currentVersion > latestVersion {
+	if currentVersion < latestVersion {
 		updateApp = true
 	}
 	return updateApp
