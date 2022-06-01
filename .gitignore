@@ -13,3 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+/resource.syso
+
+# Specific Tests - GH Actions fail with them in places
+/local_tests/
