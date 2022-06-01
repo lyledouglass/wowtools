@@ -4,18 +4,24 @@ import (
 	"log"
 	"os"
 	"testing"
-	"wowtools/utilities"
+	"wowtools/pkg/utilities"
 )
 
 func TestRemoveFile(t *testing.T) {
 	t.Skip()
-	os.Chdir("C:\\Temp\\wowtools")
+	err := os.Chdir("C:\\Temp\\wowtools")
+	if err != nil {
+		log.Fatal(err)
+	}
 	testFile, err := os.Create("Test.txt")
 	if err != nil {
 		log.Fatal()
 	}
 	t.Log(testFile)
-	testFile.Close()
+	err = testFile.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	retentionRate := 1
 	fileCount := utilities.GetFileCount("C:\\Temp\\wowtools\\")
