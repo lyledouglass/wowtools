@@ -13,7 +13,8 @@ import (
 func main() {
 
 	cmd.InitConfig()
-
+	// Check for updates to the application
+	cmd.UpdateWowtools()
 	// WaitGroup for creating missing folders.
 	var wg sync.WaitGroup
 	wg.Add(3)
