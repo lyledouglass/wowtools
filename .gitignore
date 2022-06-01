@@ -16,5 +16,4 @@
 /resource.syso
 
 # Specific Tests - GH Actions fail with them in places
-test/appVersion_test.go
-test/checkAppVersion_test.go
+/local_tests/
