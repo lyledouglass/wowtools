@@ -23,12 +23,9 @@ jobs:
 
     - name: Install versioninfo
       run: go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-
-    - name: cd into cmd folder
-      run: cd cmd/
       
     - name: Go Generate
-      run: go generate
+      run: cd cmd && go generate
 
     - name: ls debug
       run: ls -a
