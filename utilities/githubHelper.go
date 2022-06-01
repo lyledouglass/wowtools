@@ -38,8 +38,6 @@ func GetReleaseAsset(uri string, assetName string) string {
 	for _, asset := range data.Assets {
 		if asset.Name == assetName {
 			downloadUri = asset.BrowserDownloadURL
-		} else {
-			log.Fatal("Unable to get download URI for asset. Verify asset name and api uri are correct")
 		}
 	}
 	return downloadUri
