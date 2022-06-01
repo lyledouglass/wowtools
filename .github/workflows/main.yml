@@ -28,7 +28,7 @@ jobs:
       run: cd cmd && go generate
 
     - name: ls debug
-      run: ls -a
+      run: ls -a && pwd
 
     - name: Build for Windows (amd64)
       run: cd cmd && env GOOS=windows GOARCH=amd64 go build -o build/wowtools.exe
