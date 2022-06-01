@@ -9,6 +9,7 @@ import (
 )
 
 func TestCurseforgeOpener(t *testing.T) {
+	t.Skip()
 	curseforgeExe := viper.GetString("curseforge_exe")
 	curseforgeArgs := viper.GetString("curseforge_args")
 
