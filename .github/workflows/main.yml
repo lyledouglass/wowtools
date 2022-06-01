@@ -31,7 +31,7 @@ jobs:
       run: ls -a && pwd
 
     - name: Build for Windows (amd64)
-      run: cd cmd && env GOOS=windows GOARCH=amd64 go build -o build/wowtools.exe
+      run: cd cmd && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools.exe
 
     # Go Tests are acting up due to the W32 module - I've disabled all the tests but it still spits errors out. Disabling for now as these are all local tests anyways
     #- name: Test
