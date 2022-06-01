@@ -1,16 +1,16 @@
-package utilities
+package internal
 
 import (
 	"fmt"
+	"github.com/spf13/viper"
 	"log"
 	"os/exec"
-
-	"github.com/spf13/viper"
+	"wowtools/pkg/utilities"
 )
 
 func OpenCurseforge() {
 	curseforgeExe := viper.GetString("curseforge_exe")
-	updatePrompt := AskForConfirmation("Do you want to launch Curseforge to update addons?")
+	updatePrompt := utilities.AskForConfirmation("Do you want to launch Curseforge to update addons?")
 	if updatePrompt {
 		fmt.Println("Opening Cureseforge")
 		cmd := exec.Command("powershell", "Start-Process",

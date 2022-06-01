@@ -1,4 +1,4 @@
-package cmd
+package internal
 
 import (
 	"fmt"
@@ -24,4 +24,3 @@ func InitConfig() {
 		log.Fatal(err)
 	}
 }
-

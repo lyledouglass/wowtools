@@ -1,10 +1,10 @@
-package cmd
+package internal
 
 import (
 	"fmt"
 	"log"
 	"os"
-	"wowtools/utilities"
+	utilities "wowtools/pkg/utilities"
 )
 
 const wowtoolsUri = "https://api.github.com/repos/lyledouglass/wowtools/releases/latest"

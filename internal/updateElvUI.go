@@ -1,22 +1,63 @@
-package cmd
+package internal
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/spf13/viper"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
+	"regexp"
 	"strings"
 	"time"
-	"wowtools/utilities"
-
-	"github.com/spf13/viper"
+	utilities "wowtools/pkg/utilities"
 )
 
+func getCurrentElvuiVersion() []string {
+	elvuiDir := viper.GetString("elvui_dir")
+	fileOpen, err := ioutil.ReadFile(elvuiDir + "ElvUI_Mainline.toc")
+	if err != nil {
+		log.Fatal(err)
+	}
+	str := string(fileOpen)
+	re := regexp.MustCompile(`[0-9]+\.[0-9]+`)
+	v := re.FindStringSubmatch(str)
+
+	return v
+}
+
+type apiData struct {
+	Version string `json:"version"`
+}
+
+func getLatestElvuiVersion() string {
+	url := "https://www.tukui.org/api.php?ui=elvui"
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Fatal(err)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var data apiData
+	jsonErr := json.Unmarshal(body, &data)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
+	}
+	return (data.Version)
+}
+
 func UpdateElvUI() {
-	currentVersion := utilities.GetCurrentVersion()
-	latestVersion := utilities.GetLatestVersion()
+	currentVersion := getCurrentElvuiVersion()
+	latestVersion := getLatestElvuiVersion()
 	stringCurrentVersion := strings.Join(currentVersion, "")
 	filename := "elvui-" + latestVersion + ".zip"
 	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
 	downloadUri := "https://www.tukui.org/downloads/" + filename
 	zipFile := homeDir + "\\Downloads\\" + filename
 
@@ -27,7 +68,10 @@ func UpdateElvUI() {
 			removeOldElvuiZip()
 			ZipElvUI()
 			fmt.Printf("Downloading ElvUI %s\n", latestVersion)
-			utilities.DownloadFiles(filename, downloadUri)
+			err := utilities.DownloadFiles(filename, downloadUri)
+			if err != nil {
+				log.Fatal(err)
+			}
 			utilities.RemoveFolder(viper.GetString("elvui_dir"))
 			utilities.RemoveFolder(viper.GetString("elvui_options_dir"))
 			if err != nil {
@@ -60,7 +104,10 @@ func removeOldElvuiZip() {
 	fmt.Println(fileCount)
 	if fileCount > 2 {
 		oldestFile := utilities.GetOldestFolder(backupFolder)
-		os.Chdir(backupFolder)
+		err := os.Chdir(backupFolder)
+		if err != nil {
+			log.Fatal(err)
+		}
 		removeFile := os.Remove(oldestFile)
 		if removeFile != nil {
 			log.Fatal()

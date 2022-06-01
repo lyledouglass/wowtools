@@ -3,18 +3,17 @@
 package main
 
 import (
-	"sync"
-	"wowtools/cmd"
-	"wowtools/utilities"
-
 	"github.com/spf13/viper"
+	"sync"
+	"wowtools/internal"
+	"wowtools/pkg/utilities"
 )
 
 func main() {
 
-	cmd.InitConfig()
+	internal.InitConfig()
 	// Check for updates to the application
-	cmd.UpdateWowtools()
+	internal.UpdateWowtools()
 	// WaitGroup for creating missing folders.
 	var wg sync.WaitGroup
 	wg.Add(3)
@@ -23,7 +22,7 @@ func main() {
 	go utilities.VerifyFolders(viper.GetString("backup_dir")+"WTF", &wg)
 	wg.Wait()
 
-	cmd.WtfBackup()
-	cmd.UpdateElvUI()
-	utilities.OpenCurseforge()
+	internal.WtfBackup()
+	internal.UpdateElvUI()
+	internal.OpenCurseforge()
 }

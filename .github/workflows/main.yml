@@ -23,12 +23,15 @@ jobs:
 
     - name: Install versioninfo
       run: go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-
+      
     - name: Go Generate
-      run: go generate
+      run: cd cmd && go generate
+
+    - name: ls debug
+      run: ls -a
 
     - name: Build for Windows (amd64)
-      run: env GOOS=windows GOARCH=amd64 go build -o build/
+      run: cd cmd && env GOOS=windows GOARCH=amd64 go build -o build/wowtools.exe
 
     # Go Tests are acting up due to the W32 module - I've disabled all the tests but it still spits errors out. Disabling for now as these are all local tests anyways
     #- name: Test
