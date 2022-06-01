@@ -21,6 +21,9 @@ jobs:
     - name: Make build folder
       run: mkdir build
 
+    - name: Install versioninfo
+      run: go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo
+
     - name: Go Generate
       run: go generate
 
