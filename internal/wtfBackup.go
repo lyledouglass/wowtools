@@ -1,12 +1,11 @@
-package cmd
+package internal
 
 import (
 	"fmt"
 	"log"
 	"os"
 	"time"
-
-	"wowtools/utilities"
+	"wowtools/pkg/utilities"
 
 	"github.com/spf13/viper"
 )
@@ -16,7 +15,7 @@ func WtfBackup() {
 	wtfBackupDir := viper.GetString("backup_dir") + "WTF\\"
 	currentTime := time.Now()
 	folderName := currentTime.Format("2006-01-02")
-	removeOldElvuiZip()
+	removeOldestWtfZip()
 	fmt.Println("Beginning backup of WTF folder. This may take a moment")
 	if err := utilities.ZipSource(wtfFolder, wtfBackupDir+folderName+".zip"); err != nil {
 		log.Fatal(err)
@@ -30,7 +29,10 @@ func removeOldestWtfZip() {
 	fileCount := utilities.GetFileCount(wtfBackupDir)
 	if fileCount > retentionRate {
 		oldestFile := utilities.GetOldestFolder(wtfBackupDir)
-		os.Chdir(wtfBackupDir)
+		err := os.Chdir(wtfBackupDir)
+		if err != nil {
+			return
+		}
 		removeFile := os.Remove(oldestFile)
 		if removeFile != nil {
 			log.Fatal()
