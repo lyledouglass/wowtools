@@ -25,6 +25,7 @@ Update the wowtools-cli.yml file if you have WoW installed in a custom location.
 ![Alt text](https://github.com/ldougbmx/wowtools/blob/main/images/example-output.png)
 
 ## Functionality
+This is the standard operation of the app if you don't specify any CLI flags. If CLI flags are detected, this full process will not run. 
 1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
 2.  Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
     1.  Reads the `retention_rate` from the yml and removes the oldest zip file if the count in the folder is higher than it.
@@ -47,6 +48,9 @@ This flag will run wowtools and *only* do the following
 1. Remove the WTF and Interface folder from your PTR install folder
 2. Use Windows Robocopy to copy the WTF and Interface folder from your retail folder to the PTR folder.
 
+`--backup-only`
+<br>
+This flag will run a backup of your WTF folder. Useful for running automation on a scheduled basis.
 ## Planned enhancements 
 * Implement more CLI commands to allow users to perform specific actions on demand.
 
