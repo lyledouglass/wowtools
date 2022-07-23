@@ -6,6 +6,8 @@ This project is based off other applications that manage certain functions with 
 ## Requirements
 This app now uses the _standalone_ CurseForge launcher as of **v1.4.0**. If you are using the Overwolf client alongside CurseForge, you will need to use v1.3.1 or below
 
+ElvUI is also currently required. This will be addressed in https://github.com/lyledouglass/wowtools/issues/32
+
 ## Download
 The latest release can be found here: https://github.com/ldougbmx/wowtools/releases
 * Download the wowtools.exe and wowtools-cli.yml
