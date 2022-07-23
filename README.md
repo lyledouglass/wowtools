@@ -24,7 +24,7 @@ Update the wowtools-cli.yml file if you have WoW installed in a custom location.
 ## Example Output
 ![Alt text](https://github.com/ldougbmx/wowtools/blob/main/images/example-output.png)
 
-## Current Functionality
+## Functionality
 1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
 2.  Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
     1.  Reads the `retention_rate` from the yml and removes the oldest zip file if the count in the folder is higher than it.
@@ -37,9 +37,18 @@ Update the wowtools-cli.yml file if you have WoW installed in a custom location.
         4.  Unzips and moves folder to your Addons directory
 4. Asks user if they want to open the Curseforge application
 
+## CLI Flags
+wowtools allows you to specify specific flags when calling the app from the CLI which will perform specific tasks outside of the functionality listed above
+
+###
+`--copy-ptr`
+<br>
+This flag will run wowtools and *only* do the following
+1. Remove the WTF and Interface folder from your PTR install folder
+2. Use Windows Robocopy to copy the WTF and Interface folder from your retail folder to the PTR folder.
+
 ## Planned enhancements 
-* Implement CLI commands to allow users to perform specific actions on demand.
-* Version checks: [feature/version-check](https://github.com/lyledouglass/wowtools/tree/feature/version-check)
+* Implement more CLI commands to allow users to perform specific actions on demand.
 
 ## Adding an icon to the exe
 There are a few options that can be used to add an icon to the executable so it doesn't look as 'ugly' in the Start Menu or a folder you store commonly used apps. 
