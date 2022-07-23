@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -9,29 +10,25 @@ import (
 
 func TestRemoveFile(t *testing.T) {
 	t.Skip()
-	err := os.Chdir("C:\\Temp\\wowtools")
-	if err != nil {
-		log.Fatal(err)
-	}
-	testFile, err := os.Create("Test.txt")
-	if err != nil {
-		log.Fatal()
-	}
-	t.Log(testFile)
-	err = testFile.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	retentionRate := 1
-	fileCount := utilities.GetFileCount("C:\\Temp\\wowtools\\")
+	retentionRate := 15
+	t.Log(retentionRate)
+	wtfBackupDir := "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Backups\\WTF"
+	t.Log(wtfBackupDir)
+	fileCount := getFileCountTest(wtfBackupDir)
 	t.Log(fileCount)
 	if fileCount > retentionRate {
-		oldestFile := utilities.GetOldestFolder("C:\\Temp\\wowtools")
-		t.Log(oldestFile)
-		removeFile := os.Remove(oldestFile)
-		if removeFile != nil {
-			log.Fatal()
+		oldestFile := utilities.GetOldestFolder(wtfBackupDir)
+		err := os.Chdir(wtfBackupDir)
+		if err != nil {
+			log.Fatal(err)
 		}
+		fmt.Println(oldestFile)
 	}
+}
+
+func getFileCountTest(directory string) int {
+	files, _ := os.ReadDir(directory)
+	count := len(files)
+	fmt.Println(count)
+	return count
 }
