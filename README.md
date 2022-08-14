@@ -21,7 +21,9 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
 * Run wowtools.exe 
   
 ## Usage
-Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths
+Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths.
+<br>
+If you do not use ElvUI, simply remove the `elvui_dir` string so that it reads `elvui_dir: ""`
 
 ## Example Output
 ![Alt text](https://github.com/ldougbmx/wowtools/blob/main/images/example-output.png)
