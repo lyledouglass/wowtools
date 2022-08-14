@@ -47,7 +47,9 @@ func main() {
 
 	if !copyPtr && !backupOnly {
 		internal.WtfBackup()
-		internal.UpdateElvUI()
+		if viper.GetString("elvui_dir") != "" {
+			internal.UpdateElvUI()
+		}
 		internal.OpenCurseforge()
 	}
 }
