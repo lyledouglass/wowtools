@@ -20,7 +20,7 @@ func main() {
 	// Flags
 	flag.BoolVar(&copyPtr, "copy-ptr", false, "only performs copy of PTR folders from Retail")
 	flag.BoolVar(&backupOnly, "backup-only", false, "perfomrs only backup of wtf folder")
-	flag.BoolVar(&noUpdates, "no-updtaes", false, "skips checking updates for wowtools")
+	flag.BoolVar(&noUpdates, "no-updates", false, "skips checking updates for wowtools")
 	flag.Parse()
 
 	internal.InitConfig()
