@@ -176,3 +176,7 @@ func GetFileCount(directory string) int {
 	count := len(files)
 	return count
 }
+
+func CopyFolder(directory string) string {
+	return ""
+}
