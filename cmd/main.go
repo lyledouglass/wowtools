@@ -5,6 +5,7 @@ package main
 import (
 	"flag"
 	"github.com/spf13/viper"
+	"log"
 	"sync"
 	"wowtools/internal"
 	"wowtools/pkg/utilities"
@@ -12,15 +13,30 @@ import (
 
 func main() {
 	var (
-		copyPtr    bool
-		backupOnly bool
-		noUpdates  bool
+		copyPtr           bool
+		backupOnly        bool
+		noUpdates         bool
+		standardFunctions bool
+		characterCopy     bool
+		serverName        string
+		characterName     string
+		accountName       string
 	)
 
 	// Flags
 	flag.BoolVar(&copyPtr, "copy-ptr", false, "only performs copy of PTR folders from Retail")
 	flag.BoolVar(&backupOnly, "backup-only", false, "perfomrs only backup of wtf folder")
 	flag.BoolVar(&noUpdates, "no-updates", false, "skips checking updates for wowtools")
+	flag.BoolVar(&standardFunctions, "standard-functions", true, "performs standard functions. `"+
+		"Defaults to true")
+
+	// Character Copy Flags
+	flag.BoolVar(&characterCopy, "character-copy", false, "copy a template folder to `"+
+		"account for a new character")
+	flag.StringVar(&serverName, "server-name", "", "server the new character will exist on")
+	flag.StringVar(&characterName, "character-name", "", "name of character")
+	flag.StringVar(&accountName, "account-name", "", "account name you want this character to live in")
+
 	flag.Parse()
 
 	internal.InitConfig()
@@ -45,7 +61,14 @@ func main() {
 		internal.WtfBackup()
 	}
 
-	if !copyPtr && !backupOnly {
+	if characterCopy {
+		if serverName == "" || characterName == "" || accountName == "" {
+			log.Fatal("Missing server name, character name, or account name")
+		}
+		internal.NewCharacter(serverName, characterName, accountName)
+	}
+
+	if standardFunctions {
 		internal.WtfBackup()
 		if viper.GetString("elvui_dir") != "" {
 			internal.UpdateElvUI()
