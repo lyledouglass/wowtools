@@ -177,6 +177,22 @@ func GetFileCount(directory string) int {
 	return count
 }
 
-func CopyFolder(directory string) string {
-	return ""
+func CopyFolder(src, dst string) error {
+	fileIn, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer fileIn.Close()
+
+	fileOut, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer fileOut.Close()
+
+	_, err = io.Copy(fileOut, fileIn)
+	if err != nil {
+		return err
+	}
+	return fileOut.Close()
 }
