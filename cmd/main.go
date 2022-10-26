@@ -16,6 +16,7 @@ func main() {
 		copyPtr           bool
 		backupOnly        bool
 		noUpdates         bool
+		elvuiOnly         bool
 		standardFunctions bool
 		characterCopy     bool
 		serverName        string
@@ -30,6 +31,7 @@ func main() {
 	// Default this to true, as most users will want this at runtime
 	flag.BoolVar(&standardFunctions, "standard-functions", true, "performs standard functions. `"+
 		"Defaults to true")
+	flag.BoolVar(&elvuiOnly, "elvui-only", false, "only runs elvui update")
 
 	// Character Copy Flags
 	flag.BoolVar(&characterCopy, "character-copy", false, "copy a template folder to `"+
@@ -60,6 +62,10 @@ func main() {
 
 	if backupOnly {
 		internal.WtfBackup()
+	}
+
+	if elvuiOnly {
+		internal.UpdateElvUI()
 	}
 
 	if characterCopy {
