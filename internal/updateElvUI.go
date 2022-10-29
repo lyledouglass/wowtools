@@ -61,6 +61,7 @@ func UpdateElvUI() {
 	downloadUri := "https://www.tukui.org/downloads/" + filename
 	zipFile := homeDir + "\\Downloads\\" + filename
 
+	// if version is newer, zip up old installation and unzip new one.
 	if latestVersion > stringCurrentVersion {
 		fmt.Printf("A later version of ElvUI is available. Current version: %s; New version: %s\n", stringCurrentVersion, latestVersion)
 		updatePrompt := utilities.AskForConfirmation("Do you want to install the lastest version of ElvUI?")
@@ -72,13 +73,14 @@ func UpdateElvUI() {
 			if err != nil {
 				log.Fatal(err)
 			}
+			// Defer removing the zip file that's downloaded
+			defer os.Remove(zipFile)
 			utilities.RemoveFolder(viper.GetString("elvui_dir"))
 			utilities.RemoveFolder(viper.GetString("elvui_options_dir"))
 			if err != nil {
 				log.Fatal(err)
 			}
 			utilities.Unzip(zipFile, viper.GetString("addons_dir"))
-			// if version is newer, zip up old installation and unzip new one.
 		}
 	} else {
 		fmt.Println("ElvUI is up to date")
