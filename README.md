@@ -1,4 +1,8 @@
 # wowtools
+
+## Announcment:
+With WowUp officially releasing a new client with Curseforge support, I likely will be depreceating the ElvUI and CF open functionality, as Wowup can now do CF and Elvui updates. This app will still get updates to other utilities like the backups, PTR copies, new character setups, etc.
+
 * **
 ## About:
 This project is based off other applications that manage certain functions with WoW, specifically addon management and backups. With the Curseforge API changes, many developers are deprecating their applications. While this application will *not* manage addons found on Curseforge, my intent is to offer some of the other features that other applications had, such as WTF folder backups, ElvUI updates, and updates of addons from GitHub projects that are manually managed.
