@@ -1,16 +1,17 @@
 # wowtools
 
 ## Announcment:
-With WowUp officially releasing a new client with Curseforge support, I likely will be depreceating the ElvUI and CF open functionality, as Wowup can now do CF and Elvui updates. This app will still get updates to other utilities like the backups, PTR copies, new character setups, etc.
+With WowUp officially releasing a new client with Curseforge support, the ElvUI and CF open functionality are now deprecated, as Wowup can now do CF and Elvui updates. This app will still get updates to other utilities like the backups, PTR copies, new character setups, etc.
+
+*If you still want to use ElvUI and CF Open functionality, you will need to use v2.4.1 or below*
 
 * **
 ## About:
-This project is based off other applications that manage certain functions with WoW, specifically addon management and backups. With the Curseforge API changes, many developers are deprecating their applications. While this application will *not* manage addons found on Curseforge, my intent is to offer some of the other features that other applications had, such as WTF folder backups, ElvUI updates, and updates of addons from GitHub projects that are manually managed.
+This project is based off other applications that manage certain functions with WoW, specifically addon management and backups. With the Curseforge API changes, many developers are deprecating their applications. While this application will *not* manage addons found on Curseforge, my intent is to offer some of the other features that other applications had, such as WTF folder backups, PTR profiles copies, new character setups, etc.
 
 ## Requirements
-This app now uses the _standalone_ CurseForge launcher as of **v1.4.0**. If you are using the Overwolf client alongside CurseForge, you will need to use v1.3.1 or below
-
-ElvUI is also currently required. This will be addressed in https://github.com/lyledouglass/wowtools/issues/32
+* This application is written and compiled in Go. All dependencies are compiled in the application executable.
+* You will need to have the wowtools-cli.yml in the same directory as the exe
 
 ## Download
 The latest release can be found here: https://github.com/ldougbmx/wowtools/releases
@@ -18,47 +19,30 @@ The latest release can be found here: https://github.com/ldougbmx/wowtools/relea
   * The README and LICENSE files are also included in the release
 * Place the files anywhere on your system (but both in the same directory)
 * Verify/Update the wowtools-cli.yml to set custom paths if needed
-  * *Depreciated as of v1.4.0*
-    * ~~The curseforge_args will need to be filled out for Curseforge to open. If they are not, only the full full Overwolf app will open.~~ 
-    * ~~These can be grabbed from the Curseforge exe by right-clicking and selecting Properties.~~ 
-    * ~~Copy the target -launchapp xxxxxxxxxxxxxxxxx -from-startmenu section and insert it into the yml.~~
 * Run wowtools.exe 
   
 ## Usage
 Update the wowtools-cli.yml file if you have WoW installed in a custom location. This application relies on the yml for file paths.
 <br>
-If you do not use ElvUI, simply remove the `elvui_dir` string so that it reads `elvui_dir: ""`
-
 ## Example Output
 ![Alt text](https://github.com/ldougbmx/wowtools/blob/main/images/example-output.png)
 
 ## Functionality
 This is the standard operation of the app if you don't specify any CLI flags. If CLI flags are detected, this full process will not run. 
-1.  Creates `_retail_\Backups`, `_retail_\Backups\WTF` and `_retail_\Backups\ElvUI` directories if they don't exist
-2.  Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
-    1.  Reads the `retention_rate` from the yml and removes the oldest zip file if the count in the folder is higher than it.
-3.  Checks for any updates to ElvUI
-    1.  If a newer version is found via the API, you will be asked if you want to update
-    2.  If Yes
-        1.  Zips current ElvUI directories and moves them to `_retail_\Backups\ElvUI`
-        2.  Deletes current ElvUI install in the Addons directory
-        3.  Downloads latest zip of ElvUI
-        4.  Unzips and moves folder to your Addons directory
-4. Asks user if they want to open the Curseforge application
+1.  Creates `_retail_\Backups` and `_retail_\Backups\WTF` directories if they don't exist
 
 ## CLI Flags
 wowtools allows you to specify specific flags when calling the app from the CLI which will perform specific tasks outside of the functionality listed above
-
 ###
-`--copy-ptr`
-<br>
-This flag will run wowtools and *only* do the following
-1. Remove the WTF and Interface folder from your PTR install folder
-2. Use Windows Robocopy to copy the WTF and Interface folder from your retail folder to the PTR folder.
+`backup`
+* Zips up the WTF directory (`C:\Program Files (x86)\World of Warcraft\_retail_\WTF`) and backs it up to `C:\Program Files (x86)\World of Warcraft\_retail_\Backups\WTF`, with the format of YYYY-MM-DD.zip
+* Reads the `retention_rate` from the yml and removes the oldest zip file if the count in the folder is higher than it.
+###
+`copy-ptr`
+* This flag will run wowtools and *only* do the following
+* Remove the WTF and Interface folder from your PTR install folder
+* Use Windows Robocopy to copy the WTF and Interface folder from your retail folder to the PTR folder.
 
-`--backup-only`
-<br>
-This flag will run a backup of your WTF folder. Useful for running automation on a scheduled basis.
 ## Planned enhancements 
 * Implement more CLI commands to allow users to perform specific actions on demand.
 
