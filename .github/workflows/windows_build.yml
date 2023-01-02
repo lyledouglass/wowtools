@@ -25,13 +25,13 @@ jobs:
       run: go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo
       
     - name: Go Generate
-      run: cd cmd && go generate
+      run: cd cmd/client && go generate
 
     - name: ls debug
       run: ls -a && pwd
 
     - name: Build for Windows (amd64)
-      run: cd cmd && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools.exe
+      run: cd cmd/client && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_client.exe
 
     # Go Tests are acting up due to the W32 module - I've disabled all the tests but it still spits errors out. Disabling for now as these are all local tests anyways
     #- name: Test
@@ -42,7 +42,7 @@ jobs:
       with:
         name: WoWTools-Windows-AMD64
         path: |
-          build/wowtools.exe
+          build/wowtools_client.exe
           LICENSE
           README.md
           wowtools-cli.yml
@@ -77,7 +77,7 @@ jobs:
           files: |
             LICENSE
             README.md
-            build/wowtools.exe
+            build/wowtools_client.exe
             wowtools-cli.yml
   release:
     runs-on: ubuntu-latest
@@ -103,7 +103,7 @@ jobs:
           files: |
             LICENSE
             README.md
-            build/wowtools.exe
+            build/wowtools_client.exe
             wowtools-cli.yml
 
       
