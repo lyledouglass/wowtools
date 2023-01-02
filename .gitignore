@@ -17,3 +17,7 @@
 
 # Specific Tests - GH Actions fail with them in places
 /local_tests/
+
+# Configs in cmd folder
+/cmd/client/config.yaml
+/cmd/server/config.yaml
