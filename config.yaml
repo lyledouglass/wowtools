@@ -1,3 +1,6 @@
+wowtools_version: "3.0.0"
+
+# Windows Client
 wow_dir: "C:\\Program Files (x86)\\World of Warcraft"
 wtf_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\WTF"
 backup_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Backups\\"
@@ -6,3 +9,7 @@ elvui_options_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Interf
 addons_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\Interface\\AddOns"
 curseforge_exe: "C:\\Users\\<USERNAME>\\AppData\\Local\\Programs\\CurseForge\\CurseForge.exe"
 retention_rate: 15
+
+# Linux Server
+blizzard_access_token: ""
+discord_webhook_url: ""
