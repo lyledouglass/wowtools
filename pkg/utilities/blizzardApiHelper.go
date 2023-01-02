@@ -1,46 +1,29 @@
 package utilities
 
 import (
-	"encoding/json"
-	"io/ioutil"
+	"context"
+	"github.com/FuzzyStatic/blizzard/v3"
 	"log"
 	"net/http"
 )
 
-const (
-	WowGameApi = "https://us.api.blizzard.com/data/wow/"
-)
+// GetBlizzApiAuth Uses the FuzzyStatic Blizzard API wrapper package to create an access token
+func GetBlizzApiAuth(clientId string, clientSecret string) *blizzard.Client {
 
-func GetTokenPrice(token string) int {
-
-	url := WowGameApi + "token/index?namespace=dynamic-us&locale=en_US&access_token=" + token
-	method := "GET"
-
-	client := &http.Client{}
-	req, err := http.NewRequest(method, url, nil)
-
+	usBlizzClient, err := blizzard.NewClient(blizzard.Config{
+		ClientID:     clientId,
+		ClientSecret: clientSecret,
+		HTTPClient:   http.DefaultClient,
+		Region:       blizzard.US,
+		Locale:       blizzard.EnUS,
+	})
 	if err != nil {
-		log.Fatalln(err)
-	}
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	type tokenApiData struct {
-		Price int `json:"price"`
-	}
-	var response tokenApiData
-	jsonErr := json.Unmarshal(body, &response)
-	if jsonErr != nil {
-		return 0
+		log.Fatal("Error creating Blizzard client: ", err)
 	}
 
-	return response.Price
-	// fmt.Println(response.Price)
+	tokenErr := usBlizzClient.AccessTokenRequest(context.Background())
+	if tokenErr != nil {
+		log.Fatal("Error creating access token request: ", tokenErr)
+	}
+	return usBlizzClient
 }
