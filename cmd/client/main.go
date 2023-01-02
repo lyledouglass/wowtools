@@ -1,5 +1,3 @@
-//go:generate goversioninfo
-
 package main
 
 import (
@@ -11,6 +9,9 @@ import (
 )
 
 func main() {
+	
+	utilities.LoadConfig(".")
+
 	var (
 		copyPtr   bool
 		backup    bool
@@ -23,7 +24,6 @@ func main() {
 	flag.BoolVar(&noUpdates, "no-updates", false, "skips checking updates for wowtools")
 	flag.Parse()
 
-	internal.InitConfig()
 	// Check for updates to the application
 	if !noUpdates {
 		internal.UpdateWowtools()
