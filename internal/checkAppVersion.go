@@ -2,7 +2,6 @@ package internal
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"log"
 	"os"
 	utilities "wowtools/pkg/utilities"
@@ -21,9 +20,8 @@ func compareAppVersioning(currentVersion string, latestVersion string) bool {
 
 func UpdateWowtools() {
 	// Variable declaration
-	utilities.LoadConfig(".")
 	var latestVersion = utilities.GetPublishedAppVersion(wowtoolsUri)
-	var currentVersion = viper.GetString("wowtools_version")
+	var currentVersion = utilities.CurrentAppVersion()
 
 	updateApp := compareAppVersioning(currentVersion, latestVersion)
 	if updateApp == true {

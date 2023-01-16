@@ -1,5 +1,3 @@
-wowtools_version: "4.0.0"
-
 # Windows Client
 wow_dir: "C:\\Program Files (x86)\\World of Warcraft"
 wtf_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\WTF"
