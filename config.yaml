@@ -1,4 +1,4 @@
-wowtools_version: "3.0.0"
+wowtools_version: "4.0.0"
 
 # Windows Client
 wow_dir: "C:\\Program Files (x86)\\World of Warcraft"
