@@ -1,6 +1,6 @@
 module wowtools
 
-go 1.17
+go 1.18
 
 require (
 	github.com/gonutz/w32/v2 v2.4.0
