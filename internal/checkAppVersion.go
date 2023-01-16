@@ -9,11 +9,9 @@ import (
 
 const wowtoolsUri = "https://api.github.com/repos/lyledouglass/wowtools/releases/latest"
 
-var latestVersion = utilities.GetPublishedAppVersion(wowtoolsUri)
-var currentVersion = utilities.GetCurrentAppVersion()
-
-func compareAppVersioning() bool {
+func compareAppVersioning(currentVersion string, latestVersion string) bool {
 	var updateApp bool
+	fmt.Println(currentVersion)
 	if currentVersion < latestVersion {
 		updateApp = true
 	}
@@ -21,7 +19,11 @@ func compareAppVersioning() bool {
 }
 
 func UpdateWowtools() {
-	updateApp := compareAppVersioning()
+	// Variable declaration
+	var latestVersion = utilities.GetPublishedAppVersion(wowtoolsUri)
+	var currentVersion = utilities.CurrentAppVersion()
+
+	updateApp := compareAppVersioning(currentVersion, latestVersion)
 	if updateApp == true {
 		fmt.Printf("You are running on an older version (%s) of this application. Would you like to download the latest version (%s)?", currentVersion, latestVersion)
 		updatePrompt := utilities.AskForConfirmation("")

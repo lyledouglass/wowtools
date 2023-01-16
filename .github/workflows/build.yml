@@ -16,33 +16,31 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.17
+        go-version: 1.18
 
     - name: Make build folder
       run: mkdir build
-
-    - name: Install versioninfo
-      run: go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo
-      
-    - name: Go Generate
-      run: cd cmd && go generate
 
     - name: ls debug
       run: ls -a && pwd
 
     - name: Build for Windows (amd64)
-      run: cd cmd && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools.exe
+      run: cd cmd/client && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_client.exe
+
+    - name: Build for Linux (amd64)
+      run: cd cmd/server && env GOOS=linux GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_server
 
     # Go Tests are acting up due to the W32 module - I've disabled all the tests but it still spits errors out. Disabling for now as these are all local tests anyways
     #- name: Test
       #run: go test -v ./...
 
-    - name: Upload Windows Artifact
+    - name: Upload Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
-        name: WoWTools-Windows-AMD64
+        name: WoWTools-AMD64
         path: |
-          build/wowtools.exe
+          build/wowtools_client.exe
+          build/wowtools_server
           LICENSE
           README.md
           wowtools-cli.yml
@@ -54,10 +52,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download Windows Artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          name: WoWTools-Windows-AMD64
+          name: WoWTools-AMD64
           
       - name: See file contents
         id: filesinfolder
@@ -77,7 +75,8 @@ jobs:
           files: |
             LICENSE
             README.md
-            build/wowtools.exe
+            build/wowtools_client.exe
+            build/wowtools_server
             wowtools-cli.yml
   release:
     runs-on: ubuntu-latest
@@ -89,7 +88,7 @@ jobs:
       - name: Download Windows Artifacts
         uses: actions/download-artifact@v2
         with:
-          name: WoWTools-Windows-AMD64
+          name: WoWTools-AMD64
 
       - name: Get current date
         id: date
@@ -103,7 +102,8 @@ jobs:
           files: |
             LICENSE
             README.md
-            build/wowtools.exe
+            build/wowtools_client.exe
+            build/wowtools_server
             wowtools-cli.yml
 
       
