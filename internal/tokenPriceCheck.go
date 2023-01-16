@@ -7,11 +7,13 @@ import (
 	"github.com/disgoorg/disgo/discord"
 	"github.com/spf13/viper"
 	"log"
+	"strconv"
 	"time"
 	"wowtools/pkg/utilities"
 )
 
 func TokenPriceAlert(blizzAuthClient *blizzard.Client, discordWebhook string) {
+	minTokenPrice := viper.GetInt("wow_token_min")
 	tokenPrice, _, err := blizzAuthClient.WoWToken(context.Background())
 	if err != nil {
 		log.Fatal("Error accessing token price via API: ", err)
@@ -32,7 +34,7 @@ func TokenPriceAlert(blizzAuthClient *blizzard.Client, discordWebhook string) {
 	if response.Price == 0 {
 		log.Fatalln("Error getting token data from Blizzard API")
 	}
-	if response.Price > viper.GetInt("wow_token_min") {
+	if response.Price > minTokenPrice {
 		image := discord.EmbedResource{
 			URL:      viper.GetString("discord_embed_image"),
 			ProxyURL: "",
@@ -44,7 +46,7 @@ func TokenPriceAlert(blizzAuthClient *blizzard.Client, discordWebhook string) {
 		embedContent := discord.Embed{
 			Title:       "wowtools.io",
 			Type:        "",
-			Description: "The WoW Token is above 200k",
+			Description: "The WoW Token is above " + strconv.Itoa(minTokenPrice/100000),
 			URL:         "",
 			Timestamp:   &currentTime,
 			Color:       0,
