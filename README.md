@@ -72,34 +72,20 @@ There are a few options that can be used to add an icon to the executable so it 
 
 ---
 
-## Docker
+## Linux 
 
 <details>
     <summary>Expand</summary>
-        The `wowtools_server` application is compiled for Linux and published to dockerhub for use in docker.
+        The `wowtools_server` application is compiled for Linux for use in conjunction with cron.
 
 ### Requirements
 
-- Docker
+- A linux based machine 
 
 ## Download/Installation
 
-The latest release can be found here: LINK_TO_DOCKER_IMAGE
+The latest release can be found here: https://github.com/ldougbmx/wowtools/releases
 <br>
-Docker-Compose is the suggested method for creating and maintaining the deployment
-
-```yaml
-version: "3"
-services:
-  wowtools:
-    container_name: wowtools
-    image: "image_name"
-    env:
-      BlizzardAccessToken: ""
-      WebhookUri: ""
-    restart: unless-stopped
-```
-
 ### Functionality
 
 - Scrapes the WoW Token Price via the Blizzard and reports it if the sale price is above a set value
