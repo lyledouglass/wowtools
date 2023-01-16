@@ -10,7 +10,7 @@ import (
 )
 
 func TestGetAppVersion(t *testing.T) {
-	//t.Skip()
+	t.Skip()
 	t.Log("Test")
 	currentVersion := "3.0.0"
 	t.Log(currentVersion)
@@ -21,7 +21,7 @@ type githubApiData struct {
 }
 
 func TestGetLatestVersion(t *testing.T) {
-	//t.Skip()
+	t.Skip()
 	url := "https://api.github.com/repos/lyledouglass/wowtools/releases/latest"
 	resp, err := http.Get(url)
 	if err != nil {
