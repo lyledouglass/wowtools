@@ -42,6 +42,7 @@ jobs:
         name: WoWTools-AMD64
         path: |
           build/wowtools_client.exe
+          build/wowtools_server.exe
           build/wowtools_server
           LICENSE
           README.md
@@ -78,6 +79,7 @@ jobs:
             LICENSE
             README.md
             build/wowtools_client.exe
+            build/wowtools_server.exe
             build/wowtools_server
             wowtools-cli.yml
   release:
@@ -105,6 +107,7 @@ jobs:
             LICENSE
             README.md
             build/wowtools_client.exe
+            build/wowtools_server.exe
             build/wowtools_server
             wowtools-cli.yml
 
