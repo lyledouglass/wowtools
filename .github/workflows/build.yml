@@ -25,7 +25,9 @@ jobs:
       run: ls -a && pwd
 
     - name: Build for Windows (amd64)
-      run: cd cmd/client && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_client.exe
+      run: |
+        cd cmd/client && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_client.exe
+        cd ../server && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_server.exe
 
     - name: Build for Linux (amd64)
       run: cd cmd/server && env GOOS=linux GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_server
@@ -40,6 +42,7 @@ jobs:
         name: WoWTools-AMD64
         path: |
           build/wowtools_client.exe
+          build/wowtools_server.exe
           build/wowtools_server
           LICENSE
           README.md
@@ -76,6 +79,7 @@ jobs:
             LICENSE
             README.md
             build/wowtools_client.exe
+            build/wowtools_server.exe
             build/wowtools_server
             wowtools-cli.yml
   release:
@@ -103,6 +107,7 @@ jobs:
             LICENSE
             README.md
             build/wowtools_client.exe
+            build/wowtools_server.exe
             build/wowtools_server
             wowtools-cli.yml
 
