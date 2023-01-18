@@ -25,7 +25,9 @@ jobs:
       run: ls -a && pwd
 
     - name: Build for Windows (amd64)
-      run: cd cmd/client && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_client.exe
+      run: |
+        cd cmd/client && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_client.exe
+        cd ../server && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_server.exe
 
     - name: Build for Linux (amd64)
       run: cd cmd/server && env GOOS=linux GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_server
