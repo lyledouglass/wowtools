@@ -24,3 +24,7 @@
 
 # Linux binary
 wowtools_server
+.idea/.gitignore
+.idea/modules.xml
+.idea/vcs.xml
+.idea/wowtools.iml
