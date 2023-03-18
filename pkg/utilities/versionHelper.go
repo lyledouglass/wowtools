@@ -11,7 +11,7 @@ import (
 // CurrentAppVersion Returns the local version of the application. Not the best
 // way to handle the app version but works for both OS
 func CurrentAppVersion() string {
-	appVersion := "4.0.0"
+	appVersion := "4.1.0"
 	return appVersion
 }
 
