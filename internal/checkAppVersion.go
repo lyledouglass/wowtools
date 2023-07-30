@@ -30,7 +30,7 @@ func UpdateWowtools() {
 		if updatePrompt {
 			utilities.Log.Debug("Downloading latest package")
 			downloadUri := utilities.GetReleaseAsset(wowtoolsUri, "wowtools_client.exe")
-			err := utilities.DownloadFiles("wowtools.exe", downloadUri)
+			err := utilities.DownloadFiles("wowtools_client.exe", downloadUri)
 			if err != nil {
 				utilities.Log.WithError(err).Error("Download of new Wowtools failed")
 			}
