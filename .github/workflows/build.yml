@@ -3,6 +3,8 @@ on:
     tags:
       - "v*"
     branches: [main]
+    paths:
+      - "versionHelper.go"
   pull_request:
     branches: [main]
 
@@ -59,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: WoWTools-AMD64
-          
+
       - name: See file contents
         id: filesinfolder
         run: ls -a /home/runner/work/wowtools/wowtools
