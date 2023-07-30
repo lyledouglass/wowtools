@@ -1,4 +1,5 @@
 # Windows Client
+application_name: "wowtools_client.exe"
 wow_dir: "C:\\Program Files (x86)\\World of Warcraft"
 retail_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\"
 wtf_dir: "C:\\Program Files (x86)\\World of Warcraft\\_retail_\\WTF"
