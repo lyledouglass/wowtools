@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"wowtools/pkg/utilities"
+
+	"github.com/spf13/viper"
 )
 
 const wowtoolsUri = "https://api.github.com/repos/lyledouglass/wowtools/releases/latest"
@@ -22,6 +24,7 @@ func UpdateWowtools() {
 	// Variable declaration
 	var latestVersion = utilities.GetPublishedAppVersion(wowtoolsUri)
 	var currentVersion = utilities.CurrentAppVersion()
+	var appName = viper.GetString("application_name")
 
 	updateApp := compareAppVersioning(currentVersion, latestVersion)
 	if updateApp {
@@ -29,8 +32,8 @@ func UpdateWowtools() {
 		updatePrompt := utilities.AskForConfirmation("")
 		if updatePrompt {
 			utilities.Log.Debug("Downloading latest package")
-			downloadUri := utilities.GetReleaseAsset(wowtoolsUri, "wowtools_client.exe")
-			err := utilities.DownloadFiles("wowtools_client.exe", downloadUri)
+			downloadUri := utilities.GetReleaseAsset(wowtoolsUri, appName)
+			err := utilities.DownloadFiles(appName, downloadUri)
 			if err != nil {
 				utilities.Log.WithError(err).Error("Download of new Wowtools failed")
 			}
