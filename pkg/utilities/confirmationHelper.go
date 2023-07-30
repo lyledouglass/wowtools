@@ -3,7 +3,6 @@ package utilities
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 )
@@ -16,7 +15,7 @@ func AskForConfirmation(s string) bool {
 
 		response, err := reader.ReadString('\n')
 		if err != nil {
-			log.Fatal(err)
+			Log.WithError(err).Error("Error reading input string")
 		}
 
 		response = strings.ToLower(strings.TrimSpace(response))

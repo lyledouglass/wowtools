@@ -2,7 +2,6 @@ package internal
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 	"wowtools/pkg/utilities"
@@ -17,10 +16,11 @@ func WtfBackup() {
 	folderName := currentTime.Format("2006-01-02")
 	removeOldestWtfZip()
 	fmt.Println("Beginning backup of WTF folder. This may take a moment")
+	utilities.Log.Info("Beginning backup of WTF folder. This may take a moment")
 	if err := utilities.ZipSource(wtfFolder, wtfBackupDir+folderName+".zip"); err != nil {
-		log.Fatal(err)
+		utilities.Log.WithError(err).Error("Failed to zip source")
 	}
-	fmt.Println("Folder backup complete")
+	utilities.Log.Info("Folder backup complete")
 }
 
 func removeOldestWtfZip() {
@@ -31,11 +31,12 @@ func removeOldestWtfZip() {
 		oldestFile := utilities.GetOldestFolder(wtfBackupDir)
 		err := os.Chdir(wtfBackupDir)
 		if err != nil {
+			utilities.Log.WithError(err).Errorf("Failed to change directories to %s", wtfBackupDir)
 			return
 		}
 		removeFile := os.Remove(oldestFile)
 		if removeFile != nil {
-			log.Fatal()
+			utilities.Log.WithError(removeFile).Errorf("Failed to remove %s", oldestFile)
 		}
 	}
 }

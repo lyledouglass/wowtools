@@ -2,10 +2,10 @@ package internal
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
-	"log"
 	"os"
 	"wowtools/pkg/utilities"
+
+	"github.com/spf13/viper"
 )
 
 func WtfRestore(file string) {
@@ -13,20 +13,20 @@ func WtfRestore(file string) {
 		"you want to proceed?")
 	updatePrompt := utilities.AskForConfirmation("")
 	if updatePrompt {
-		fmt.Println("Continuing")
-		fmt.Println("Removing current WTF folder")
+		utilities.Log.Info("Continuing destructive action")
+		utilities.Log.Debug("Removing current WTF folder")
 		retailFolder := viper.GetString("retail_dir")
 		wtfFolder := viper.GetString("wtf_dir")
 		// Delete files recursively in order to delete the
 		err := os.RemoveAll(wtfFolder)
 		if err != nil {
-			log.Fatal()
+			utilities.Log.WithError(err).Errorf("Failed to remove %s", wtfFolder)
 		}
-		fmt.Printf("Restoring %s", file)
+		utilities.Log.Infof("Restoring %s", file)
 		restoreFile := viper.GetString("backup_dir") + "WTF\\" + file
 		utilities.Unzip(restoreFile, retailFolder)
 	} else {
-		fmt.Println("Exiting")
+		utilities.Log.Debug("Exiting")
 		os.Exit(0)
 	}
 

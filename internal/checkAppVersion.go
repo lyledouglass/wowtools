@@ -2,16 +2,16 @@ package internal
 
 import (
 	"fmt"
-	"log"
 	"os"
-	utilities "wowtools/pkg/utilities"
+	"wowtools/pkg/utilities"
 )
 
 const wowtoolsUri = "https://api.github.com/repos/lyledouglass/wowtools/releases/latest"
 
 func compareAppVersioning(currentVersion string, latestVersion string) bool {
 	var updateApp bool
-	fmt.Println(currentVersion)
+	utilities.Log.Debug(currentVersion)
+	utilities.Log.Debug(latestVersion)
 	if currentVersion < latestVersion {
 		updateApp = true
 	}
@@ -24,18 +24,18 @@ func UpdateWowtools() {
 	var currentVersion = utilities.CurrentAppVersion()
 
 	updateApp := compareAppVersioning(currentVersion, latestVersion)
-	if updateApp == true {
-		fmt.Printf("You are running on an older version (%s) of this application. Would you like to download the latest version (%s)?", currentVersion, latestVersion)
+	if updateApp {
+		utilities.Log.Infof("You are running on an older version (%s) of this application. Would you like to download the latest version (%s)?", currentVersion, latestVersion)
 		updatePrompt := utilities.AskForConfirmation("")
 		if updatePrompt {
-			fmt.Println("Downloading latest package...")
-			downloadUri := utilities.GetReleaseAsset(wowtoolsUri, "wowtools.exe")
+			utilities.Log.Debug("Downloading latest package")
+			downloadUri := utilities.GetReleaseAsset(wowtoolsUri, "wowtools_client.exe")
 			err := utilities.DownloadFiles("wowtools.exe", downloadUri)
 			if err != nil {
-				log.Fatal("Download step failed")
+				utilities.Log.WithError(err).Error("Download of new Wowtools failed")
 			}
 			homeDir, _ := os.UserHomeDir()
-			fmt.Printf("Wowtools version %s hase been downloaded to %s. Please close this application and replace it with the new executable", latestVersion, homeDir+"\\Downloads\\")
+			utilities.Log.Infof("Wowtools version %s hase been downloaded to %s. Please close this application and replace it with the new executable", latestVersion, homeDir+"\\Downloads\\")
 			fmt.Println("")
 			fmt.Println("Press 'Enter' to close the program to update")
 			var input string
@@ -43,6 +43,6 @@ func UpdateWowtools() {
 			os.Exit(0)
 		}
 	} else {
-		fmt.Println("wowtools is up to date, continuing...")
+		utilities.Log.Debug("Wowtools is up to date")
 	}
 }

@@ -6,13 +6,14 @@ import (
 	"io"
 	"io/fs"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 func ZipSource(source, target string) error {
@@ -65,21 +66,23 @@ func ZipSource(source, target string) error {
 func DownloadFiles(filename string, url string) error {
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Errorf("Failed to get URL %s", url)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		log.Fatal(resp.StatusCode)
+		Log.WithFields(logrus.Fields{
+			"StatusCode": resp.StatusCode,
+		}).Error("StatusCode not 200")
 	}
 
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Error("Failed to get Home dir")
 	}
 
 	fileOutput, err := os.Create(homeDir + "\\Downloads\\" + filename)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Errorf("Failed to create %s", homeDir+"\\Downloads\\"+filename)
 	}
 	defer fileOutput.Close()
 
@@ -90,7 +93,7 @@ func DownloadFiles(filename string, url string) error {
 func RemoveFolder(folderPath string) {
 	err := os.RemoveAll(folderPath)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Errorf("Failed to remove %s", folderPath)
 	}
 }
 
@@ -99,7 +102,7 @@ func Unzip(src string, dest string) ([]string, error) {
 
 	r, err := zip.OpenReader(src)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Error("Failed to open zip reader")
 	}
 	defer r.Close()
 
@@ -147,7 +150,7 @@ func Unzip(src string, dest string) ([]string, error) {
 func VerifyFolders(filepath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 	if _, err := os.Stat(filepath); os.IsNotExist(err) {
-		fmt.Println(filepath + " did not exist. Creating it!")
+		Log.Infof("%s did not exist. Creating it", filepath)
 		os.Mkdir(filepath, os.ModePerm)
 	}
 }
@@ -156,7 +159,7 @@ func GetOldestFolder(filepath string) string {
 	var oldestFile fs.FileInfo
 	files, err := ioutil.ReadDir(filepath)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Error("Error getting oldest folder")
 	}
 	oldestTime := time.Now()
 	for _, file := range files {

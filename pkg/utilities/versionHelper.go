@@ -3,7 +3,6 @@ package utilities
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -11,7 +10,7 @@ import (
 // CurrentAppVersion Returns the local version of the application. Not the best
 // way to handle the app version but works for both OS
 func CurrentAppVersion() string {
-	appVersion := "4.1.0"
+	appVersion := "4.2.0"
 	return appVersion
 }
 
@@ -22,16 +21,16 @@ type githubApiData struct {
 func GetPublishedAppVersion(url string) string {
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Errorf("Unable to GET %s", url)
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Error("Error reading response body")
 	}
 	var data githubApiData
 	jsonErr := json.Unmarshal(body, &data)
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
+		Log.WithError(jsonErr).Error("Error unmarshalling json")
 	}
 	return strings.Trim(data.AppVersion, "{ v }")
 }

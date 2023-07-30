@@ -2,10 +2,11 @@ package internal
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
-	"log"
 	"os"
 	"os/exec"
+	"wowtools/pkg/utilities"
+
+	"github.com/spf13/viper"
 )
 
 func CopyPtrData() {
@@ -20,13 +21,13 @@ func CopyPtrData() {
 
 	for _, element := range folders {
 		roboCmd := fmt.Sprintf("robocopy \"%s\" \"%s\" /s", retailFolder+element, ptrFolder+element)
-		fmt.Println(roboCmd)
-		fmt.Sprintf("Copying %s to PTR dir", element)
+		utilities.Log.Debug(roboCmd)
+		utilities.Log.Debugf("Copying %s to PTR dir", element)
 		cmd := exec.Command("powershell", roboCmd)
 
 		err := cmd.Start()
 		if err != nil {
-			log.Fatal(err)
+			utilities.Log.WithError(err).Error("CopyPtrData - Failed to start command")
 		}
 	}
 }
@@ -36,7 +37,7 @@ func removePtrSubDirs(folderArray [2]string, dstFolder string) {
 		fmt.Printf("Removing %s\n", element)
 		err := os.RemoveAll(dstFolder + element)
 		if err != nil {
-			log.Fatal(err)
+			utilities.Log.WithError(err).Error("removePtrSubDirs - failed to remove files")
 		}
 	}
 }
