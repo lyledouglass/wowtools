@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"github.com/spf13/viper"
-	"log"
 	"wowtools/internal"
 	"wowtools/pkg/utilities"
+
+	"github.com/spf13/viper"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 	var c config
 	unmarshallErr := viper.Unmarshal(&c)
 	if unmarshallErr != nil {
-		log.Fatal("Error unmarshalling viper config: ", unmarshallErr)
+		utilities.Log.WithError(unmarshallErr).Error("Error unmarshalling viper config")
 	}
 
 	blizzAuth := utilities.GetBlizzApiAuth(c.ClientID, c.ClientSecret)

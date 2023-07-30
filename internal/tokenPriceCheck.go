@@ -3,24 +3,24 @@ package internal
 import (
 	"context"
 	"encoding/json"
-	"github.com/FuzzyStatic/blizzard/v3"
-	"github.com/disgoorg/disgo/discord"
-	"github.com/spf13/viper"
-	"log"
 	"strconv"
 	"time"
 	"wowtools/pkg/utilities"
+
+	"github.com/FuzzyStatic/blizzard/v3"
+	"github.com/disgoorg/disgo/discord"
+	"github.com/spf13/viper"
 )
 
 func TokenPriceAlert(blizzAuthClient *blizzard.Client, discordWebhook string) {
 	minTokenPrice := viper.GetInt("wow_token_min")
 	tokenPrice, _, err := blizzAuthClient.WoWToken(context.Background())
 	if err != nil {
-		log.Fatal("Error accessing token price via API: ", err)
+		utilities.Log.WithError(err).Error("Error accessing token price via API")
 	}
 	tokenResp, err := json.MarshalIndent(tokenPrice, "", "  ")
 	if err != nil {
-		log.Fatal(err)
+		utilities.Log.WithError(err).Error("Error running json.MarshalIndent on TokenPrice")
 	}
 
 	type tokenData struct {
@@ -29,10 +29,10 @@ func TokenPriceAlert(blizzAuthClient *blizzard.Client, discordWebhook string) {
 	var response tokenData
 	jsonErr := json.Unmarshal(tokenResp, &response)
 	if jsonErr != nil {
-		log.Fatal("Error unmarshalling json: ", jsonErr)
+		utilities.Log.WithError(jsonErr).Error("Error unmarshalling json")
 	}
 	if response.Price == 0 {
-		log.Fatalln("Error getting token data from Blizzard API")
+		utilities.Log.Error("Error getting token data from Blizzard API")
 	}
 	if response.Price > minTokenPrice {
 		image := discord.EmbedResource{
@@ -60,6 +60,6 @@ func TokenPriceAlert(blizzAuthClient *blizzard.Client, discordWebhook string) {
 		}
 
 		utilities.MessageSend(discordClient, embedContent)
-		println(tokenPrice)
+		utilities.Log.Info(tokenPrice)
 	}
 }

@@ -3,7 +3,6 @@ package utilities
 import (
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -18,27 +17,28 @@ func GetReleaseAsset(uri string, assetName string) string {
 	}
 	resp, err := http.Get(uri)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Errorf("GetReleaseAsset - failed to GET %s", uri)
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			log.Fatal(err)
+			Log.WithError(err).Error("Error closing Body")
 		}
 	}(resp.Body)
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		Log.WithError(err).Error("Failed to Read resp.Body")
 	}
 	var data githubApiData
 	jsonErr := json.Unmarshal(body, &data)
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
+		Log.WithError(jsonErr).Error("Failed to unmarshal json")
 	}
 	for _, asset := range data.Assets {
 		if asset.Name == assetName {
 			downloadUri = asset.BrowserDownloadURL
 		}
 	}
+	Log.Debug("Download URI - " + downloadUri)
 	return downloadUri
 }

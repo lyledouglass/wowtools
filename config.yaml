@@ -15,3 +15,6 @@ blizzard_clientsecret: ""
 discord_webhook_url: ""
 wow_token_min: 2000000000
 discord_embed_image: "https://media.tenor.com/f42nTKr9aggAAAAC/excited-ronpaul.gif"
+
+# Global Settings
+log_level: "debug"

@@ -10,7 +10,7 @@ import (
 )
 
 func TestGitHubApi(t *testing.T) {
-	var assetName = "wowtools.exe"
+	var assetName = "wowtools_client.exe"
 	type githubApiData struct {
 		AppVersion string `json:"tag_name"`
 		Assets     []struct {
@@ -38,8 +38,13 @@ func TestGitHubApi(t *testing.T) {
 	if jsonErr != nil {
 		log.Fatal(jsonErr)
 	}
-	fmt.Println("Version: " + data.AppVersion)
+	//fmt.Print(data)
+	//fmt.Print("")
+	//fmt.Println("Version: " + data.AppVersion)
+	//fmt.Print(assetName)
 	for _, asset := range data.Assets {
+		//fmt.Print(asset.Name + ": ")
+		//fmt.Print(asset.BrowserDownloadURL + " ")
 		if asset.Name == assetName {
 			fmt.Println("Download URI: " + asset.BrowserDownloadURL)
 		}

@@ -2,10 +2,11 @@ package main
 
 import (
 	"flag"
-	"github.com/spf13/viper"
 	"sync"
 	"wowtools/internal"
 	"wowtools/pkg/utilities"
+
+	"github.com/spf13/viper"
 )
 
 func main() {
@@ -19,6 +20,8 @@ func main() {
 		restore   bool
 		wtfzip    string
 	)
+	// Configure Logging via Logrus using utilities.SetupLogger for a global config
+	utilities.SetupLogger(viper.GetString("log_level"))
 
 	// Flags
 	flag.BoolVar(&copyPtr, "copy-ptr", false, "only performs copy of PTR folders from Retail")
@@ -30,15 +33,18 @@ func main() {
 
 	// Check for updates to the application
 	if !noUpdates {
+		utilities.Log.Debug("Beginning UpdateWowtools function")
 		internal.UpdateWowtools()
 	}
 
 	if copyPtr {
+		utilities.Log.Debug("Beginning CopyPtrData function")
 		internal.CopyPtrData()
 	}
 
 	if backup {
 		// WaitGroup for creating missing folders.
+		utilities.Log.Debug("Creating WaitGroup if folders are missing")
 		var wg sync.WaitGroup
 		wg.Add(2)
 		go utilities.VerifyFolders(viper.GetString("backup_dir"), &wg)
@@ -46,10 +52,12 @@ func main() {
 		go utilities.VerifyFolders(viper.GetString("backup_dir")+"WTF", &wg)
 		wg.Wait()
 
+		utilities.Log.Debug("Beginning WtfBackup function")
 		internal.WtfBackup()
 	}
 
 	if restore && wtfzip != "" {
+		utilities.Log.Debug("Beginning WtfRestore function")
 		internal.WtfRestore(wtfzip)
 	}
 

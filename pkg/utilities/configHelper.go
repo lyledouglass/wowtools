@@ -1,8 +1,9 @@
 package utilities
 
 import (
-	"github.com/spf13/viper"
 	"log"
+
+	"github.com/spf13/viper"
 )
 
 // LoadConfig Loads viper config file
@@ -13,5 +14,6 @@ func LoadConfig(path string) {
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatal("Error loading Viper config: ", err)
+		Log.WithError(err).Error("Error loading Viper config")
 	}
 }

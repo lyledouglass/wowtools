@@ -2,9 +2,10 @@ package utilities
 
 import (
 	"context"
-	"github.com/FuzzyStatic/blizzard/v3"
 	"log"
 	"net/http"
+
+	"github.com/FuzzyStatic/blizzard/v3"
 )
 
 // GetBlizzApiAuth Uses the FuzzyStatic Blizzard API wrapper package to create an access token
@@ -18,12 +19,13 @@ func GetBlizzApiAuth(clientId string, clientSecret string) *blizzard.Client {
 		Locale:       blizzard.EnUS,
 	})
 	if err != nil {
-		log.Fatal("Error creating Blizzard client: ", err)
+		Log.WithError(err).Error("Error creating Blizzard client")
 	}
 
 	tokenErr := usBlizzClient.AccessTokenRequest(context.Background())
 	if tokenErr != nil {
 		log.Fatal("Error creating access token request: ", tokenErr)
+		Log.WithError(tokenErr).Error("Error creating access token request")
 	}
 	return usBlizzClient
 }
