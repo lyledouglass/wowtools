@@ -19,8 +19,8 @@
 /local_tests/
 
 # Configs in cmd folder
-/cmd/client/config.yaml
-/cmd/server/config.yaml
+/cmd/cli/config.yaml
+/cmd/watcher/config.yaml
 
 # Linux binary
 wowtools_server
