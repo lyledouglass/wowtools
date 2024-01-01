@@ -96,7 +96,7 @@ func UpdateApp(appVersion string) {
 			util.Log.Fatalf("Error getting current user: %s", err)
 		}
 		homeDir := user.HomeDir
-		downloadApp(client, latestVersion, homeDir+"Downloads")
+		downloadApp(client, latestVersion, homeDir+"\\Downloads")
 		util.Log.Info("New version downloaded, please close this application and " +
 			"move the new version to your desired location to replace this version")
 	} else {
