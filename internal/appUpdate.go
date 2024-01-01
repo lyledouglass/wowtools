@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/user"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -14,7 +15,6 @@ import (
 	util "wowtools/pkg/utilities"
 
 	"github.com/google/go-github/v56/github"
-	"github.com/spf13/viper"
 )
 
 // Get the latest version of the application from the github api
@@ -93,13 +93,13 @@ func UpdateApp(appVersion string) {
 	// can compare the two versions and see if we need to download a new version
 	if latestVersion > appVersion {
 		util.Log.Info("New version available, downloading...")
-		//user, err := user.Current()
+		user, err := user.Current()
 		if err != nil {
 			util.Log.Fatalf("Error getting current user: %s", err)
 		}
-		//homeDir := user.HomeDir
-		downloadApp(client, latestVersion, viper.GetString("retail_dir")+"Wowtools")
-		util.Log.Info("Upgrade complete")
+		homeDir := user.HomeDir
+		downloadApp(client, latestVersion, homeDir+"\\Downloads")
+		util.Log.Info("New version downloaded to Downloads folder. Please overwrite the existing executable with the new one!")
 	} else {
 		util.Log.Info("You are running the latest version")
 	}
