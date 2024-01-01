@@ -10,7 +10,10 @@ var Log = logrus.New()
 
 func SetupLogger(loglevel string) {
 	Log.SetLevel(getLogLevelFromString(loglevel))
-	Log.SetFormatter(&logrus.JSONFormatter{})
+	Log.SetFormatter(&logrus.TextFormatter{
+		FullTimestamp:    loglevel == "trace",
+		DisableTimestamp: loglevel != "trace",
+	})
 }
 func getLogLevelFromString(loglevel string) logrus.Level {
 	switch strings.ToLower(loglevel) {

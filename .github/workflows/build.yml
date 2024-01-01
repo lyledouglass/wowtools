@@ -28,11 +28,7 @@ jobs:
 
     - name: Build for Windows (amd64)
       run: |
-        cd cmd/cli && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_cli.exe
-        cd ../watcher && env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_watcher.exe
-
-    - name: Build for Linux (amd64)
-      run: cd cmd/watcher && env GOOS=linux GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools_watcher
+        env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools.exe
 
     # Go Tests are acting up due to the W32 module - I've disabled all the tests but it still spits errors out. Disabling for now as these are all local tests anyways
     #- name: Test
@@ -43,12 +39,7 @@ jobs:
       with:
         name: WoWTools-AMD64
         path: |
-          build/wowtools_cli.exe
-          build/wowtools_watcher.exe
-          build/wowtools_watcher
-          LICENSE
-          README.md
-          config.yaml
+          build/wowtools.exe
 
   release:
     runs-on: ubuntu-latest
@@ -66,9 +57,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            LICENSE
-            README.md
-            build/wowtools_cli.exe
-            build/wowtools_watcher.exe
-            build/wowtools_watcher
-            config.yaml
+            build/wowtools.exe
