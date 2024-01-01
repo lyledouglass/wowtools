@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	const version = "4.2.2"
+	const version = "5.0.0"
 
 	var (
 		logging     string
