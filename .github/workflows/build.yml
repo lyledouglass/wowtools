@@ -57,4 +57,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            build/wowtools.exe
+            wowtools.exe
