@@ -7,7 +7,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"os/user"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -15,6 +14,7 @@ import (
 	util "wowtools/pkg/utilities"
 
 	"github.com/google/go-github/v56/github"
+	"github.com/spf13/viper"
 )
 
 // Get the latest version of the application from the github api
@@ -53,18 +53,20 @@ func downloadApp(githubClient *github.Client, version string, folderPath string)
 		if err != nil {
 			return fmt.Errorf("error creating temp file: %s", err)
 		}
-		defer tmpfile.Close()
+		//defer tmpfile.Close()
 		reader := bufio.NewReader(resp)
 		writeFile, err := io.Copy(tmpfile, reader)
 		if err != nil {
 			return fmt.Errorf("error copying file: %s", err)
 		}
-		util.Log.Debugf("Wrote %d bytes to %s", writeFile, tmpfile.Name())
+		tmpFileName := tmpfile.Name()
+		tmpfile.Close()
+		util.Log.Debugf("Wrote %d bytes to %s", writeFile, tmpFileName)
 
 		// Move the downloaded file to the specified location
 		destPath := filepath.Join(folderPath, filepath.Base(*asset.Name))
-		util.Log.Infof("Moving %s to %s", tmpfile.Name(), destPath)
-		err = os.Rename(tmpfile.Name(), destPath)
+		util.Log.Infof("Moving %s to %s", tmpFileName, destPath)
+		err = os.Rename(tmpFileName, destPath)
 		if err != nil {
 			fmt.Print(err)
 			return fmt.Errorf("error moving file: %s", err)
@@ -91,14 +93,13 @@ func UpdateApp(appVersion string) {
 	// can compare the two versions and see if we need to download a new version
 	if latestVersion > appVersion {
 		util.Log.Info("New version available, downloading...")
-		user, err := user.Current()
+		//user, err := user.Current()
 		if err != nil {
 			util.Log.Fatalf("Error getting current user: %s", err)
 		}
-		homeDir := user.HomeDir
-		downloadApp(client, latestVersion, homeDir+"\\Downloads")
-		util.Log.Info("New version downloaded, please close this application and " +
-			"move the new version to your desired location to replace this version")
+		//homeDir := user.HomeDir
+		downloadApp(client, latestVersion, viper.GetString("retail_dir")+"Wowtools")
+		util.Log.Info("Upgrade complete")
 	} else {
 		util.Log.Info("You are running the latest version")
 	}
