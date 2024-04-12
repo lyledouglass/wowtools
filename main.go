@@ -35,7 +35,7 @@ func main() {
 
 	var updateCmd = &cobra.Command{
 		Use:   "update",
-		Short: "Update your erp-devops-workflow-assistant application",
+		Short: "Update your Wowtools app to the latest version",
 		Run: func(cmd *cobra.Command, args []string) {
 			util.SetupLogger(logging)
 			internal.UpdateApp(version)
