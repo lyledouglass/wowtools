@@ -30,11 +30,12 @@ func CopyPtrData() {
 			utilities.Log.WithError(err).Error("CopyPtrData - Failed to start command")
 		}
 	}
+	utilities.Log.Info("PTR data copied successfully")
 }
 
 func removePtrSubDirs(folderArray [2]string, dstFolder string) {
 	for _, element := range folderArray {
-		fmt.Printf("Removing %s\n", element)
+		utilities.Log.Debug("Removing %s\n", element)
 		err := os.RemoveAll(dstFolder + element)
 		if err != nil {
 			utilities.Log.WithError(err).Error("removePtrSubDirs - failed to remove files")
