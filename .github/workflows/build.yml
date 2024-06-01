@@ -68,5 +68,5 @@ jobs:
           gh release create ${{ needs.build.outputs.next }}
           wowtools.exe
           --title ${{ needs.build.outputs.next }}
-          --generate-notes --notes-start-tags
+          --generate-notes --notes-start-tag
           ${{ needs.build.outputs.next }}
