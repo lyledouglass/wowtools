@@ -53,17 +53,14 @@ jobs:
     needs: build
     if: ${{ needs.build.outputs.bump != '' && github.ref == 'refs/heads/main' }}
     steps:
-      - name: Download Windows Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: WoWTools-AMD64
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: debug
-        run: ls -la
+      - name: Download Windows Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: WoWTools-AMD64
 
       - name: Create Release
         shell: bash
