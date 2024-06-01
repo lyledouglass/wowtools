@@ -1,19 +1,27 @@
 on:
   push:
-    tags:
-      - "v*"
     branches: [main]
-    paths:
-      - "versionHelper.go"
   pull_request:
     branches: [main]
 
 jobs:
-
   build:
+    outputs:
+      next: ${{ steps.get-version.outputs.next }}
+      bump: ${{ steps.get-version.outputs.bump }}
+
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+
+    - uses: actions/checkout@v4
+
+    - name: Get Next version
+      id: get-version
+      uses: ietf-tools/semver-action@v1.8.0
+      with:
+        token: ${{ github.token }}
+        branch: ${{ github.ref }}
+        noVersionBumpBehavior: 'current'
 
     - name: Set up Go
       uses: actions/setup-go@v4
@@ -23,16 +31,15 @@ jobs:
     - name: Make build folder
       run: mkdir build
 
-    - name: ls debug
-      run: ls -a && pwd
+    - name: Update version in main.go
+      shell: bash
+      run: |
+        new_version=${{ steps.get-version.outputs.nextStrict }}
+        sed -i "s/const version = \"[0-9]*\.[0-9]*\.[0-9]*\"/const version = \"$new_version\"/g" ${{ github.workspace }}/main.go
 
     - name: Build for Windows (amd64)
       run: |
         env GOOS=windows GOARCH=amd64 go build -o /home/runner/work/wowtools/wowtools/build/wowtools.exe
-
-    # Go Tests are acting up due to the W32 module - I've disabled all the tests but it still spits errors out. Disabling for now as these are all local tests anyways
-    #- name: Test
-      #run: go test -v ./...
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
@@ -44,17 +51,22 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: build
-    if: startsWith(github.ref, 'refs/tags/')
+    if: ${{ needs.build.outputs.bump != '' && github.ref == 'refs/heads/main' }}
     steps:
-      - uses: actions/checkout@v3
-
       - name: Download Windows Artifacts
         uses: actions/download-artifact@v2
         with:
           name: WoWTools-AMD64
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
+      - uses: actions/checkout@v4
         with:
-          files: |
-            wowtools.exe
+          fetch-depth: 0
+
+      - name: Create Release
+        shell: bash
+        run: >
+          gh release create ${{ needs.build.outputs.next }}
+          wowtools.exe
+          --title ${{ needs.build.outputs.next }}
+          --generate-notes --notes-start-tags
+          ${{ needs.build.outputs.next }}
