@@ -11,7 +11,9 @@ import (
 
 func main() {
 
-	const version = "5.0.7"
+	// in the github actions, the version is set by the build script at
+	// build time and will be set via conventioanl commits
+	const version = "0.0.0"
 
 	var (
 		logging     string
