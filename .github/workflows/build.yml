@@ -62,6 +62,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: debug
+        run: ls -la
+
       - name: Create Release
         shell: bash
         env:
