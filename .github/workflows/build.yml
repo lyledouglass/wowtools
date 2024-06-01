@@ -64,6 +64,8 @@ jobs:
 
       - name: Create Release
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >
           gh release create ${{ needs.build.outputs.next }}
           wowtools.exe
