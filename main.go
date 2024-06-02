@@ -3,7 +3,7 @@ package main
 import (
 	"sync"
 	"wowtools/internal"
-	util "wowtools/pkg/utilities"
+	util "wowtools/internal/utilities"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

@@ -3,7 +3,6 @@ package internal
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/spf13/viper"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -11,7 +10,9 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	utilities "wowtools/pkg/utilities"
+	utilities "wowtools/internal/utilities"
+
+	"github.com/spf13/viper"
 )
 
 func getCurrentElvuiVersion() []string {

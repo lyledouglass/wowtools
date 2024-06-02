@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	"testing"
-	"wowtools/pkg/utilities"
+	"wowtools/internal/utilities"
 )
 
 func TestRemoveFile(t *testing.T) {

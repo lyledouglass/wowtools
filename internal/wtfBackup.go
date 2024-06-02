@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
-	"wowtools/pkg/utilities"
+	"wowtools/internal/utilities"
 
 	"github.com/spf13/viper"
 )
