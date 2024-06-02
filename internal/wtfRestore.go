@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 	"os"
-	"wowtools/pkg/utilities"
+	"wowtools/internal/utilities"
 
 	"github.com/spf13/viper"
 )

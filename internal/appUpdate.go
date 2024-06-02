@@ -12,7 +12,7 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	util "wowtools/pkg/utilities"
+	util "wowtools/internal/utilities"
 
 	"github.com/google/go-github/v56/github"
 )

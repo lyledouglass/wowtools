@@ -2,7 +2,7 @@ package test
 
 import (
 	"testing"
-	"wowtools/pkg/utilities"
+	"wowtools/internal/utilities"
 )
 
 func TestLogrus(t *testing.T) {
