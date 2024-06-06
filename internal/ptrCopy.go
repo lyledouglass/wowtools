@@ -35,7 +35,7 @@ func CopyPtrData() {
 
 func removePtrSubDirs(folderArray [2]string, dstFolder string) {
 	for _, element := range folderArray {
-		utilities.Log.Debug("Removing %s\n", element)
+		utilities.Log.Debugf("Removing %s\n", element)
 		err := os.RemoveAll(dstFolder + element)
 		if err != nil {
 			utilities.Log.WithError(err).Error("removePtrSubDirs - failed to remove files")
