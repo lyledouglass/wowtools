@@ -20,8 +20,8 @@ func main() {
 		help        bool
 		versionFlag bool
 		wtfzip      string
-		wowVersion  string
-		addonName   string
+		wowversion  string
+		addonname   string
 	)
 
 	util.LoadConfig(".")
@@ -90,7 +90,7 @@ func main() {
 		Short: "Copy Addon data from Retail",
 		Run: func(cmd *cobra.Command, args []string) {
 			util.SetupLogger(logging)
-			internal.CopyAddonData(wowVersion, addonName)
+			internal.CopyAddonData(wowversion, addonname)
 		},
 	}
 
@@ -113,8 +113,8 @@ func main() {
 	// addonCopyCmd Flags
 	addonCopyCmd.Flags().StringVarP(&logging, "logging", "l", "info", "Enables logging. Options are: trace, debug, info, warn, error, fatal, panic")
 	addonCopyCmd.Flags().BoolVarP(&help, "help", "h", false, "Displays useful information")
-	addonCopyCmd.Flags().StringVarP(&wowVersion, "wowVersion", "w", "", "The version of WoW to copy the addon data to")
-	addonCopyCmd.Flags().StringVarP(&addonName, "addonName", "a", "", "The name of the addon to copy")
+	addonCopyCmd.Flags().StringVarP(&wowversion, "wowVersion", "w", "", "The version of WoW to copy the addon data to")
+	addonCopyCmd.Flags().StringVarP(&addonname, "addonName", "a", "", "The name of the addon to copy")
 
 	// rootCmd Flags
 	rootCmd.Flags().BoolVarP(&help, "help", "h", false, "Displays useful information")
